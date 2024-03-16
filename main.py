@@ -1,39 +1,49 @@
+""" Кнопка старт и стоп выполнения бесконечной функции в Tkinter, без блокировки интерфейса"""
 from tkinter import *
 from tkinter import ttk
 import time
 import threading
 
 root = Tk()
-root.title("METANIT.COM")
+root.title("BTN START STOP")
 root.geometry("250x200")
 running = True
 
+count = 1
 
-def func_1():
-    def qwer():
+
+def func_start():
+    btn_1['state'] = 'disabled'
+
+    def thread_start():
+        print("start")
         global running
         if not running:
             running = True
         while running:
-            print(5)
+            global count
+            print(count, end='\r')
+            print(count, end='')
+            count += 1
             time.sleep(1)
 
-    threading.Thread(target=qwer).start()
+    thr = threading.Thread(target=thread_start)
+    thr.start()
 
 
-def func_2():
+def func_stop():
+    global count
+    count = 1
+    btn_1['state'] = 'enabled'
     global running
     if running:
         running = False
-        print("false")
+        print("stop")
 
 
-# th_1 = threading.Thread(target=func_1)
-th_2 = threading.Thread(target=func_2)
-
-btn_1 = ttk.Button(text="Click_1", command=func_1)
+btn_1 = ttk.Button(text="Start", command=func_start)
 btn_1.pack(anchor=CENTER, expand=1)
-btn_2 = ttk.Button(text="Click_2", command=th_2.start)
+btn_2 = ttk.Button(text="Stop", command=func_stop)
 btn_2.pack(anchor=CENTER, expand=2)
 
 if __name__ == '__main__':
