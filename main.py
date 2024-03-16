@@ -1,5 +1,4 @@
 """ Кнопка старт и стоп выполнения бесконечной функции в Tkinter, без блокировки интерфейса"""
-import sys
 from tkinter import *
 from tkinter import ttk
 import time
